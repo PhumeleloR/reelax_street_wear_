@@ -1,0 +1,725 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Reelax Street Wear</title>
+
+<style>
+:root {
+  --blue: #2582c7;
+  --blue-deep: #10558d;
+  --ink: #0b1118;
+  --muted: #66707c;
+  --line: #e3eaf2;
+  --bg: #f3f7fc;
+  --ice: #eaf4ff;
+  --lavender: #f1efff;
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  font-family: Arial, Helvetica, sans-serif;
+  color: var(--ink);
+  background:
+    radial-gradient(ellipse at 8% 8%, rgba(37,130,199,.08), transparent 28%),
+    radial-gradient(ellipse at 92% 28%, rgba(126,167,255,.10), transparent 26%),
+    linear-gradient(180deg, #fbfdff 0%, #f4f8fd 48%, #ffffff 100%);
+  background-attachment: fixed;
+}
+
+a { text-decoration: none; color: inherit; }
+button { font: inherit; cursor: pointer; }
+
+header {
+  height: 78px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 5vw;
+  border-bottom: 1px solid rgba(210,224,240,.8);
+  position: sticky;
+  top: 0;
+  background: rgba(255,255,255,.82);
+  backdrop-filter: blur(18px) saturate(160%);
+  box-shadow: 0 8px 30px rgba(20,55,90,.045);
+  z-index: 20;
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-weight: 900;
+  letter-spacing: 3px;
+}
+
+.brand img { height: 54px; width: 70px; object-fit: contain; }
+.brand span { font-size: 17px; }
+
+nav { display: flex; gap: 34px; font-weight: 700; font-size: 14px; }
+
+.cartBtn {
+  border: 0;
+  background: var(--ink);
+  color: white;
+  padding: 12px 18px;
+  border-radius: 999px;
+}
+
+.cartBtn span {
+  background: var(--blue);
+  border-radius: 50%;
+  padding: 3px 7px;
+  margin-left: 6px;
+}
+
+.hero {
+  min-height: 660px;
+  display: grid;
+  grid-template-columns: 1fr 1.05fr;
+  align-items: center;
+  position: relative;
+  isolation: isolate;
+  background:
+    radial-gradient(circle at 8% 12%, rgba(255,255,255,.95) 0 7%, transparent 28%),
+    radial-gradient(circle at 75% 18%, rgba(98,166,235,.30), transparent 34%),
+    linear-gradient(125deg, #f5f9ff 0%, #e5f1ff 48%, #d9eaff 100%);
+  overflow: hidden;
+}
+
+.hero > div { padding: 7vw; }
+
+.hero h1 {
+  font-size: clamp(54px, 7vw, 105px);
+  line-height: .88;
+  margin: 16px 0 24px;
+  letter-spacing: -5px;
+}
+
+.hero h1 span { color: var(--blue); }
+
+.hero p:not(.eyebrow) {
+  font-size: 18px;
+  color: #4c5966;
+  max-width: 540px;
+  line-height: 1.65;
+}
+
+.hero > img {
+  width: 100%;
+  height: 660px;
+  object-fit: cover;
+  filter: saturate(1.06) contrast(1.02);
+  mask-image: linear-gradient(90deg, transparent 0%, #000 13%);
+}
+
+.eyebrow {
+  font-size: 12px;
+  font-weight: 900;
+  letter-spacing: 4px;
+  color: var(--blue);
+}
+
+.cta, .checkout {
+  display: inline-block;
+  background: linear-gradient(135deg, #2582c7, #145d9b);
+  color: white;
+  padding: 16px 24px;
+  border-radius: 8px;
+  font-weight: 800;
+  margin-top: 15px;
+  box-shadow: 0 10px 24px rgba(37,130,199,.24);
+  transition: transform .2s ease, box-shadow .2s ease;
+}
+.cta:hover { transform: translateY(-2px); box-shadow: 0 14px 28px rgba(37,130,199,.3); }
+
+.shop { padding: 80px 5vw; }
+
+.sectionHead {
+  display: flex;
+  justify-content: space-between;
+  align-items: end;
+  gap: 30px;
+  margin-bottom: 32px;
+}
+
+.sectionHead h2 { font-size: 44px; margin: 7px 0; }
+
+.filters {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+}
+
+.filter {
+  border: 1px solid #dce6f2;
+  background: rgba(255,255,255,.8);
+  border-radius: 999px;
+  transition: .2s;
+  padding: 9px 14px;
+}
+
+.filter.active { background: var(--ink); color: white; }
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 22px;
+}
+
+.card {
+  border: 1px solid rgba(221,231,243,.9);
+  background: linear-gradient(160deg, rgba(255,255,255,.98), rgba(248,251,255,.94));
+  border-radius: 18px;
+  box-shadow: 0 8px 24px rgba(24,62,102,.045);
+  transition: transform .25s ease, box-shadow .25s ease, border-color .25s ease;
+  overflow: hidden;
+}
+
+.card:hover {
+  transform: translateY(-7px);
+  border-color: rgba(37,130,199,.35);
+  box-shadow: 0 24px 55px rgba(27,78,126,.13);
+}
+
+.card img {
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  object-fit: cover;
+  background: linear-gradient(135deg, #edf5ff, #f7f5ff);
+  cursor: pointer;
+  transition: transform .35s ease;
+}
+
+.pad { padding: 16px; }
+
+.category {
+  font-size: 11px;
+  letter-spacing: 2px;
+  color: var(--blue);
+  font-weight: 900;
+}
+
+.row {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  align-items: start;
+}
+
+.card h3 { margin: 8px 0; font-size: 18px; }
+.price { font-weight: 900; }
+
+.add {
+  width: 100%;
+  border: 1px solid var(--ink);
+  background: linear-gradient(180deg, #fff, #f5f9fe);
+  padding: 11px;
+  margin-top: 12px;
+  font-weight: 800;
+  border-radius: 8px;
+  transition: .2s;
+}
+
+.add:hover { background: var(--ink); color: white; }
+
+.band {
+  margin: 20px 5vw 80px;
+  position: relative;
+  overflow: hidden;
+  border: 1px solid rgba(105,166,224,.22);
+  border-radius: 24px;
+  background:
+    radial-gradient(circle at 15% 15%, rgba(53,145,224,.42), transparent 32%),
+    radial-gradient(circle at 85% 90%, rgba(105,124,255,.22), transparent 30%),
+    linear-gradient(125deg, #071a2d 0%, #0c3154 54%, #102443 100%);
+  color: white;
+  padding: 76px 30px;
+  text-align: center;
+  box-shadow: 0 24px 60px rgba(7,35,65,.18);
+}
+
+.band h2 { font-size: 45px; margin: 0 0 15px; }
+.band p { color: #aeb7c0; }
+
+.drawer {
+  position: fixed;
+  right: -440px;
+  top: 0;
+  width: min(430px, 96vw);
+  height: 100vh;
+  background: white;
+  z-index: 50;
+  padding: 24px;
+  transition: .25s;
+  overflow: auto;
+}
+
+.drawer.open { right: 0; }
+
+.drawerHead {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid var(--line);
+}
+
+.drawerHead button, .modalClose {
+  border: 0;
+  background: none;
+  font-size: 32px;
+}
+
+.scrim {
+  position: fixed;
+  inset: 0;
+  background: #0008;
+  z-index: 40;
+  display: none;
+}
+
+.scrim.show { display: block; }
+
+.cartItem {
+  display: grid;
+  grid-template-columns: 70px 1fr auto;
+  gap: 12px;
+  padding: 15px 0;
+  border-bottom: 1px solid var(--line);
+}
+
+.cartItem img {
+  width: 70px;
+  height: 70px;
+  object-fit: cover;
+}
+
+.cartItem p { margin: 4px 0; color: var(--muted); font-size: 13px; }
+.remove { border: 0; background: none; color: #b3261e; }
+
+.total {
+  display: flex;
+  justify-content: space-between;
+  font-size: 21px;
+  padding: 25px 0;
+}
+
+.checkout { border: 0; width: 100%; margin: 0; }
+.note { color: var(--muted); font-size: 12px; line-height: 1.5; }
+
+.modal {
+  position: fixed;
+  z-index: 60;
+  inset: 8vh 8vw;
+  background: white;
+  display: none;
+  box-shadow: 0 25px 80px #0005;
+}
+
+.modal.show { display: block; }
+
+.modalClose {
+  position: absolute;
+  right: 18px;
+  top: 12px;
+  z-index: 2;
+}
+
+.productDetail {
+  display: grid;
+  grid-template-columns: 1.15fr 1fr;
+  height: 100%;
+}
+
+.productDetail img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.detailCopy { padding: 8vw 6vw; }
+.detailCopy h2 { font-size: 44px; margin: 10px 0; }
+
+.detailCopy select {
+  width: 100%;
+  padding: 13px;
+  margin: 12px 0;
+  border: 1px solid var(--line);
+}
+
+footer {
+  padding: 35px 5vw;
+  border-top: 1px solid rgba(210,224,240,.85);
+  background: linear-gradient(180deg, rgba(255,255,255,.68), rgba(241,247,253,.92));
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  color: var(--muted);
+}
+
+footer img { height: 55px; }
+.empty { color: var(--muted); padding: 30px 0; }
+
+@media(max-width: 1000px) {
+  .grid { grid-template-columns: repeat(2, 1fr); }
+  .hero { grid-template-columns: 1fr; }
+  .hero > img { height: 500px; }
+  .productDetail { grid-template-columns: 1fr; overflow: auto; }
+  .productDetail img { height: 45vh; }
+  .modal { inset: 3vh 3vw; }
+}
+
+@media(max-width: 650px) {
+  nav { display: none; }
+  .hero > div { padding: 55px 7vw; }
+  .hero h1 { letter-spacing: -3px; }
+  .grid { grid-template-columns: 1fr; }
+  .sectionHead { align-items: start; flex-direction: column; }
+  .filters { justify-content: flex-start; }
+  .band { padding: 45px 22px; }
+  .brand span { display: none; }
+}
+
+/* Extra polish: soft blue ambience, smoother surfaces and accessible motion */
+.hero::before {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  width: 420px;
+  height: 420px;
+  left: -190px;
+  bottom: -250px;
+  border: 1px solid rgba(37,130,199,.18);
+  border-radius: 50%;
+  box-shadow: 0 0 0 34px rgba(37,130,199,.035), 0 0 0 70px rgba(37,130,199,.025);
+}
+.hero::after {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  width: 230px;
+  height: 230px;
+  top: -105px;
+  right: 43%;
+  border-radius: 50%;
+  background: rgba(255,255,255,.28);
+  filter: blur(2px);
+}
+.sectionHead h2 { letter-spacing: -1.8px; }
+.eyebrow { text-shadow: 0 3px 18px rgba(37,130,199,.10); }
+.card img:hover { transform: scale(1.025); }
+.band h2 { letter-spacing: -1.5px; }
+.drawer, .modal { box-shadow: 0 24px 80px rgba(7,35,65,.22); }
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { scroll-behavior: auto !important; transition-duration: .01ms !important; }
+}
+@media(max-width: 1000px) {
+  .hero > img { mask-image: linear-gradient(180deg, #000 0%, #000 88%, transparent 100%); }
+}
+@media(max-width: 650px) {
+  .hero { background: radial-gradient(circle at 80% 10%, rgba(96,161,230,.22), transparent 34%), linear-gradient(145deg, #f5f9ff, #e4f0ff); }
+  .shop { padding-top: 62px; }
+  .card { border-radius: 15px; }
+  .band { margin-left: 5vw; margin-right: 5vw; border-radius: 18px; }
+}
+
+</style>
+</head>
+
+<body>
+
+<header>
+  <a class="brand" href="#">
+  <img src="C:/Users/PhumeleloM/Downloads/Screenshot_2026-10-28_014638-removebg-preview.png"
+     alt="Reelax Street Wear logo">
+    
+    
+  </a>
+
+  <nav>
+    <a href="#shop">Shop</a>
+    <a href="#new">New In</a>
+    <a href="#about">About</a>
+  </nav>
+
+  <button class="cartBtn" id="cartBtn">
+    Bag <span id="cartCount">0</span>
+  </button>
+</header>
+
+<main>
+  <section class="hero">
+    <div>
+      <p class="eyebrow">STREET. SPORT. SMART.</p>
+      <h1>Wear your<br><span>own pace.</span></h1>
+      <p>Everyday streetwear and sport-inspired essentials.</p>
+      <a class="cta" href="#shop">Shop the collection</a>
+    </div>
+
+	
+    <img src="assets/IMG_7641.JPG" alt="Reelax hoodie">
+  </section>
+
+  <section id="shop" class="shop">
+    <div class="sectionHead">
+      <div>
+        <p class="eyebrow">THE DROP</p>
+        <h2>Shop Reelax</h2>
+      </div>
+      <div id="filters" class="filters"></div>
+    </div>
+
+    <div id="productGrid" class="grid"></div>
+  </section>
+
+  <section id="about" class="band">
+    <h2>Reelax Street Wear</h2>
+    <p>Streetwear, sports clothing and headwear designed for everyday movement.</p>
+  </section>
+</main>
+
+<aside class="drawer" id="drawer">
+  <div class="drawerHead">
+    <h2>Your bag</h2>
+    <button id="closeCart" aria-label="Close shopping bag">×</button>
+  </div>
+
+  <div id="cartItems"></div>
+
+  <div class="total">
+    <span>Total</span>
+    <strong id="cartTotal">R0.00</strong>
+  </div>
+
+  <button id="checkout" class="checkout">Continue to checkout</button>
+  <p class="note">Demo checkout. Connect a payment provider before going live.</p>
+</aside>
+
+<div class="scrim" id="scrim"></div>
+
+<div class="modal" id="modal">
+  <button id="closeModal" class="modalClose" aria-label="Close product details">×</button>
+  <div id="modalBody"></div>
+</div>
+
+<footer>
+<img src="C:/Users/PhumeleloM/Downloads/Screenshot_2026-10-28_014638-removebg-preview.png"
+     alt="Reelax Street Wear logo">
+  
+  <p>© <span id="year"></span> Reelax Street Wear</p>
+</footer>
+
+<script>
+const products = [
+  {id:1, name:"Reelax Classic Hoodie", category:"Hoodies", price:650, image:"assets/IMG_7643.jpg", sizes:["S","M","L","XL","XXL"], isNew:true},
+  {id:2, name:"Reelax Tracksuit", category:"Tracksuits", price:950, image:"assets/IMG_7646.jpg", sizes:["S","M","L","XL","XXL"], isNew:true},
+  {id:3, name:"Reelax Sports Vest", category:"Vests", price:250, image:"assets/IMG_7640.jpg", sizes:["S","M","L","XL"], isNew:false},
+  {id:4, name:"Reelax Sportswear", category:"Sports Clothing", price:450, image:"assets/IMG_7642.jpg", sizes:["S","M","L","XL","XXL"], isNew:true},
+  {id:5, name:"Reelax Classic Cap", category:"Caps", price:180, image:"assets/IMG_7645.jpg", sizes:["One size"], isNew:false},
+  {id:6, name:"Reelax Snapback", category:"Snap Caps", price:220, image:"assets/IMG_7645.jpg", sizes:["One size"], isNew:true},
+  {id:7, name:"Reelax Football Jersey", category:"Jerseys", price:400, image:"assets/IMG_7644.jpg", sizes:["S","M","L","XL","XXL"], isNew:true},
+  {id:8, name:"Reelax Street Hoodie", category:"Hoodies", price:700, image:"assets/IMG_7644.jpg", sizes:["S","M","L","XL","XXL"], isNew:false}
+];
+
+let cart = [];
+let activeFilter = "All";
+let selectedProduct = null;
+
+const productGrid = document.getElementById("productGrid");
+const filters = document.getElementById("filters");
+const drawer = document.getElementById("drawer");
+const scrim = document.getElementById("scrim");
+const modal = document.getElementById("modal");
+
+document.getElementById("year").textContent = new Date().getFullYear();
+
+const categories = ["All", "New In", "Hoodies", "Tracksuits", "Vests",
+                    "Sports Clothing", "Caps", "Snap Caps", "Jerseys"];
+
+function money(amount) {
+  return amount.toLocaleString("en-ZA", {
+    style: "currency",
+    currency: "ZAR"
+  });
+}
+
+function renderFilters() {
+  filters.innerHTML = categories.map(category => `
+    <button class="filter ${activeFilter === category ? "active" : ""}"
+      data-filter="${category}">
+      ${category}
+    </button>
+  `).join("");
+
+  filters.querySelectorAll("button").forEach(button => {
+    button.addEventListener("click", () => {
+      activeFilter = button.dataset.filter;
+      renderFilters();
+      renderProducts();
+    });
+  });
+}
+
+function renderProducts() {
+  let visibleProducts = products.filter(product => {
+    if (activeFilter === "All") return true;
+    if (activeFilter === "New In") return product.isNew;
+    return product.category === activeFilter;
+  });
+
+  productGrid.innerHTML = visibleProducts.map(product => `
+    <article class="card">
+      <img src="${product.image}" alt="${product.name}"
+        data-view="${product.id}"
+        onerror="this.onerror=null;this.src='https://placehold.co/600x600/e8f2fb/0b1118?text=Reelax+Street+Wear'">
+
+      <div class="pad">
+        <span class="category">${product.category.toUpperCase()}</span>
+        <div class="row">
+          <h3>${product.name}</h3>
+          <span class="price">${money(product.price)}</span>
+        </div>
+        <button class="add" data-add="${product.id}">Add to bag</button>
+      </div>
+    </article>
+  `).join("");
+
+  productGrid.querySelectorAll("[data-add]").forEach(button => {
+    button.addEventListener("click", () => {
+      addToCart(Number(button.dataset.add), products.find(p => p.id === Number(button.dataset.add)).sizes[0]);
+    });
+  });
+
+  productGrid.querySelectorAll("[data-view]").forEach(image => {
+    image.addEventListener("click", () => {
+      showProduct(Number(image.dataset.view));
+    });
+  });
+}
+
+function addToCart(productId, size) {
+  const existing = cart.find(item => item.productId === productId && item.size === size);
+
+  if (existing) {
+    existing.quantity++;
+  } else {
+    cart.push({productId, size, quantity:1});
+  }
+
+  renderCart();
+  openCart();
+}
+
+function renderCart() {
+  const cartItems = document.getElementById("cartItems");
+  const count = cart.reduce((sum, item) => sum + item.quantity, 0);
+  const total = cart.reduce((sum, item) => {
+    const product = products.find(p => p.id === item.productId);
+    return sum + product.price * item.quantity;
+  }, 0);
+
+  document.getElementById("cartCount").textContent = count;
+  document.getElementById("cartTotal").textContent = money(total);
+
+  if (!cart.length) {
+    cartItems.innerHTML = '<p class="empty">Your bag is empty. Find something you love!</p>';
+    return;
+  }
+
+  cartItems.innerHTML = cart.map((item, index) => {
+    const product = products.find(p => p.id === item.productId);
+
+    return `
+      <div class="cartItem">
+        <img src="${product.image}" alt="${product.name}"
+          onerror="this.onerror=null;this.src='https://placehold.co/100x100/e8f2fb/0b1118?text=Reelax'">
+        <div>
+          <strong>${product.name}</strong>
+          <p>Size: ${item.size}</p>
+          <p>${money(product.price)} × ${item.quantity}</p>
+          <button class="remove" data-remove="${index}">Remove</button>
+        </div>
+        <strong>${money(product.price * item.quantity)}</strong>
+      </div>
+    `;
+  }).join("");
+
+  cartItems.querySelectorAll("[data-remove]").forEach(button => {
+    button.addEventListener("click", () => {
+      cart.splice(Number(button.dataset.remove), 1);
+      renderCart();
+    });
+  });
+}
+
+function openCart() {
+  drawer.classList.add("open");
+  scrim.classList.add("show");
+}
+
+function closeCart() {
+  drawer.classList.remove("open");
+  scrim.classList.remove("show");
+}
+
+function showProduct(id) {
+  selectedProduct = products.find(product => product.id === id);
+
+  modal.querySelector("#modalBody").innerHTML = `
+    <div class="productDetail">
+      <img src="${selectedProduct.image}" alt="${selectedProduct.name}"
+        onerror="this.onerror=null;this.src='https://placehold.co/600x600/e8f2fb/0b1118?text=Reelax+Street+Wear'">
+      <div class="detailCopy">
+        <p class="eyebrow">${selectedProduct.category.toUpperCase()}</p>
+        <h2>${selectedProduct.name}</h2>
+        <h3>${money(selectedProduct.price)}</h3>
+        <p>Discover the Reelax collection. Choose your size before adding this item to your bag.</p>
+
+        <label for="productSize">Select size</label>
+        <select id="productSize">
+          ${selectedProduct.sizes.map(size => `<option value="${size}">${size}</option>`).join("")}
+        </select>
+
+        <button class="checkout" id="detailAdd">Add to bag</button>
+      </div>
+    </div>
+  `;
+
+  modal.classList.add("show");
+
+  document.getElementById("detailAdd").addEventListener("click", () => {
+    const size = document.getElementById("productSize").value;
+    addToCart(selectedProduct.id, size);
+    closeModal();
+  });
+}
+
+function closeModal() {
+  modal.classList.remove("show");
+}
+
+document.getElementById("cartBtn").addEventListener("click", openCart);
+document.getElementById("closeCart").addEventListener("click", closeCart);
+scrim.addEventListener("click", closeCart);
+document.getElementById("closeModal").addEventListener("click", closeModal);
+
+document.getElementById("checkout").addEventListener("click", () => {
+  if (!cart.length) {
+    alert("Your shopping bag is empty.");
+    return;
+  }
+
+  alert("Demo checkout only. Connect a secure payment provider before accepting real orders.");
+});
+
+renderFilters();
+renderProducts();
+renderCart();
+</script>
+
+</body>
+</html>
